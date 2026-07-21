@@ -42,6 +42,9 @@
       "esbuild": "0.25.12"
     }
   },
+  "optionalDependencies": {
+    "@rolldown/binding-linux-x64-gnu": "1.1.5"
+  },
   "devDependencies": {
     "@types/node": "^22.9.0",
     "gray-matter": "^4.0.3",
