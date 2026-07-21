@@ -45,7 +45,7 @@
     "db:test:core-migrations": "npm run db:test:audit-migration && npm run db:test:webhook-outbox-migration && npm run db:test:foundation-provenance-migrations && npm run db:test:orchestration-migration && npm run db:test:mutation-commands-migration && npm run db:test:billing-safety-migration && npm run db:test:sourcemap-commands-migration && npm run db:test:posthog-binding-guards && npm run db:test:posthog-binding-identities && npm run db:test:install-plan-revisions && npm run db:test:automation-scheduler-cursors && npm run db:test:automation-workflow-runtime && npm run db:test:posthog-oauth-connections && npm run db:test:onboarding-posthog-proof && npm run db:test:hosted-ingest-storage-removal && npm run db:test:read-only-schema-hard-cut && npm run db:test:legacy-loopback-quarantine && npm run db:test:release-lifecycle"
   },
   "dependencies": {
-    "@libsql/client": "^0.14.0",
+    "@libsql/client": "^0.17.4",
     "drizzle-orm": "^0.45.2"
   },
   "devDependencies": {
