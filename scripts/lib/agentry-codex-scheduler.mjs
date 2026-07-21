@@ -833,13 +833,16 @@ export async function runDirectCommand(executable, argv, options = {}) {
         forceKill.unref?.();
       }, options.timeoutMs)
     : null;
-  timeout?.unref?.();
-  const result = await new Promise((resolveResult, rejectResult) => {
-    child.once("error", rejectResult);
-    child.once("close", (code, signal) => resolveResult({ code, signal }));
-  });
-  if (timeout) clearTimeout(timeout);
-  if (forceKill) clearTimeout(forceKill);
+  let result;
+  try {
+    result = await new Promise((resolveResult, rejectResult) => {
+      child.once("error", rejectResult);
+      child.once("close", (code, signal) => resolveResult({ code, signal }));
+    });
+  } finally {
+    if (timeout) clearTimeout(timeout);
+    if (forceKill) clearTimeout(forceKill);
+  }
   return {
     ...result,
     timedOut,
