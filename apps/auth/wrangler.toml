@@ -1,0 +1,9 @@
+name = "agentry-auth"
+pages_build_output_dir = "./dist"
+compatibility_date = "2025-05-01"
+
+# Small non-authenticated browser return surface. PostHog OAuth/OIDC login and
+# callback handling live on the API worker so Agentry has one identity flow.
+# This Pages project currently hosts only the billing-success return page,
+# health check, repository redirect, and static assets. It requires no identity
+# or shared API credential.

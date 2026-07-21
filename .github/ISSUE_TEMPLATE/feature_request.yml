@@ -1,0 +1,32 @@
+name: Feature request
+description: Propose a focused improvement to the open-source project
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What agent or engineer task is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed contract or behavior
+      description: Describe the smallest useful outcome, including authority boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This proposal does not require Agentry to run an LLM server-side.
+          required: true
+        - label: I searched existing issues and workflows first.
+          required: true

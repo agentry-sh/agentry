@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "reviewedOn": "2026-07-14",
+  "purpose": "The complete reviewed path boundary for the fresh-history github.com/agentry-sh/agentry public snapshot.",
+  "snapshotPolicy": "Export only files reported by git after this check passes. Never copy the working directory wholesale and never publish this repository's existing Git history.",
+  "allowedFiles": [
+    ".gitattributes",
+    ".gitignore",
+    "AGENTRY.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "INSTALL.md",
+    "LICENSE",
+    "LICENSES.md",
+    "NOTICE",
+    "PLAN.md",
+    "PRICING.md",
+    "PRIVACY.md",
+    "README.md",
+    "SECURITY.md",
+    "SELF_HOSTING.md",
+    "SUPPORT.md",
+    "TERMS.md",
+    "TRADEMARKS.md",
+    "package-lock.json",
+    "package.json",
+    "public-boundary.json",
+    "tsconfig.base.json",
+    "tsconfig.json",
+    "docs/agent-product-guide.md",
+    "docs/automation-architecture.md",
+    "docs/automation-workflow-v3.md",
+    "docs/core-database-migrations.md",
+    "docs/credential-boundaries.md",
+    "docs/github-migration.md",
+    "docs/onboarding-mockups/README.md",
+    "docs/onboarding.md",
+    "docs/telemetry-agent-threat-model.md"
+  ],
+  "allowedPrefixes": [
+    ".agents/",
+    ".claude-plugin/",
+    ".github/",
+    "apps/api/",
+    "apps/auth/",
+    "apps/redirect/",
+    "assets/",
+    "docs/onboarding-mockups/fixtures/",
+    "packages/cli/",
+    "packages/db/",
+    "packages/mcp/",
+    "packages/shared/",
+    "plugins/agentry/",
+    "scripts/",
+    "tests/",
+    "third_party/",
+    "workflows/"
+  ],
+  "deniedFiles": [
+    ".env.outreach.example",
+    "AGENT_CONTEXT.md",
+    "STATUS.md",
+    "docs/agentry-social-outreach-links.md",
+    "docs/dashboard-soak-testing.md",
+    "docs/decisions.md",
+    "docs/marketing-distribution.md",
+    "docs/outreach-email.md",
+    "docs/outreach-lead-discovery.md",
+    "docs/outreach-prospecting.md",
+    "docs/outreach-send-system.md"
+  ],
+  "deniedPrefixes": [
+    ".git/",
+    ".wrangler/",
+    "agentry/",
+    "apps/outreach/",
+    "apps/web/",
+    "apps/www-redirect/",
+    "docs/agent-recovery-runs/",
+    "docs/audits/",
+    "docs/outreach/",
+    "node_modules/",
+    "ops/posthog-production/",
+    "tmp/"
+  ],
+  "deniedPathRegexes": [
+    {
+      "id": "environment-file",
+      "pattern": "(^|/)\\.env(?:$|\\.[^/]+$)",
+      "unlessSuffixes": [
+        ".example"
+      ]
+    },
+    {
+      "id": "worker-secret-file",
+      "pattern": "(^|/)\\.dev\\.vars(?:\\.[^/]+)?$",
+      "unlessSuffixes": [
+        ".example"
+      ]
+    },
+    {
+      "id": "credential-or-key-file",
+      "pattern": "(^|/)(?:credentials\\.json|[^/]+\\.(?:pem|key|p12|pfx))$",
+      "flags": "iu"
+    },
+    {
+      "id": "local-database-or-export",
+      "pattern": "(^|/)[^/]+\\.(?:sqlite|sqlite3|db|dump)$",
+      "flags": "iu"
+    },
+    {
+      "id": "outreach-material",
+      "pattern": "(^|/)[^/]*outreach[^/]*(?:/|$)",
+      "flags": "iu"
+    },
+    {
+      "id": "toolcraft-material",
+      "pattern": "(^|/)[^/]*toolcraft[^/]*(?:/|$)",
+      "flags": "iu"
+    },
+    {
+      "id": "private-review-capture",
+      "pattern": "(^|/)\\.agentry-[^/]+$",
+      "flags": "iu"
+    }
+  ],
+  "maxFileBytes": 2097152,
+  "largeFileAllowFiles": [],
+  "allowedSymlinks": [],
+  "contentScanMaxBytes": 2097152,
+  "contentScanExemptFiles": [
+    "apps/api/test/automation-report-source.test.ts",
+    "apps/api/test/mutation-idempotency.test.ts",
+    "packages/shared/src/telemetry-boundary.test.ts"
+  ],
+  "forbiddenContentRegexes": [
+    {
+      "id": "retired-private-repository",
+      "pattern": "(?:github\\.com/)?fr33dr4g0n/(?:agentry-private|agentry-public|agentry-skill)",
+      "flags": "iu"
+    },
+    {
+      "id": "private-key-block",
+      "pattern": "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
+      "flags": "u"
+    },
+    {
+      "id": "aws-access-key",
+      "pattern": "\\bAKIA[0-9A-Z]{16}\\b",
+      "flags": "u"
+    },
+    {
+      "id": "github-token",
+      "pattern": "\\bgh[pousr]_[A-Za-z0-9_]{20,}\\b",
+      "flags": "u"
+    },
+    {
+      "id": "stripe-live-key",
+      "pattern": "\\b(?:sk|rk)_live_[A-Za-z0-9]{16,}\\b",
+      "flags": "u"
+    },
+    {
+      "id": "slack-token",
+      "pattern": "\\bxox[baprs]-[0-9A-Za-z-]{20,}\\b",
+      "flags": "u"
+    },
+    {
+      "id": "google-api-key",
+      "pattern": "\\bAIza[0-9A-Za-z_-]{35}\\b",
+      "flags": "u"
+    },
+    {
+      "id": "personal-linkedin-profile",
+      "pattern": "https?://(?:www\\.)?linkedin\\.com/in/",
+      "flags": "iu"
+    }
+  ]
+}

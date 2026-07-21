@@ -1,0 +1,6 @@
+dist/
+out/
+.env
+.env.*
+!.env.example
+!.env.sample

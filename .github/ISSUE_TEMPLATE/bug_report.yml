@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible problem in the open-source project
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Do not include credentials, customer telemetry, OAuth codes, invite
+        tokens, onboarding proofs, or private hosted-service data. Report
+        vulnerabilities through SECURITY.md.
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      placeholder: apps/api, apps/auth, packages/mcp, workflow docs…
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Agentry version or commit
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Include expected behavior and a minimal sanitized reproduction.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification details
+      description: Commands run, response status, and relevant redacted output.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed secrets, customer data, and private operational details.
+          required: true
+        - label: This is not a vulnerability report.
+          required: true

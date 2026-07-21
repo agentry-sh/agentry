@@ -1,0 +1,52 @@
+{
+  "name": "@agentrysh/cli",
+  "version": "0.1.1",
+  "description": "Agent-readable CLI for PostHog sign-in, connection, and Agentry onboarding checkpoints.",
+  "type": "module",
+  "bin": {
+    "agentry": "bin/agentry.js"
+  },
+  "exports": {
+    ".": "./src/cli.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node --check bin/agentry.js && node --check src/cli.js",
+    "typecheck": "node --check bin/agentry.js && node --check src/cli.js",
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": [
+    "agentry",
+    "posthog",
+    "analytics",
+    "error-monitoring",
+    "observability",
+    "cli",
+    "ai-agents"
+  ],
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Agentry",
+    "url": "https://github.com/agentry-sh"
+  },
+  "homepage": "https://github.com/agentry-sh/agentry/tree/main/packages/cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentry-sh/agentry.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/agentry-sh/agentry/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

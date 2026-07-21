@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp4 binary
+*.woff2 binary
+*.ttf binary
+
+package-lock.json linguist-generated=true
+apps/api/src/workflow-manifest.generated.ts linguist-generated=true

@@ -1,0 +1,2 @@
+export const INSTALL_COMPLETE_USER_HANDOFF =
+  "Agentry is live. A future cold agent starts with GET /v1/projects/:project_id/signal-map for the saved core business flow, exact events/properties, impactful error surfaces, deploy target, and the receipt proving those signals. It does not rediscover them from source unless repairing or expanding telemetry. Ask about product or reliability; I will answer from the verified signals or name the telemetry still needed.";

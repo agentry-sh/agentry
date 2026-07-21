@@ -1,0 +1,15 @@
+{
+  "name": "launchflow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "build": "node scripts/build.mjs",
+    "deploy": "npm run build && node scripts/deploy-local.mjs",
+    "test": "node test/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

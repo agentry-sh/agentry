@@ -1,0 +1,8 @@
+# Create the @agentry-sh/maintainers team before enabling required code-owner review.
+* @agentry-sh/maintainers
+
+/apps/api/ @agentry-sh/maintainers
+/apps/auth/ @agentry-sh/maintainers
+/apps/redirect/ @agentry-sh/maintainers
+/packages/db/ @agentry-sh/maintainers
+/SECURITY.md @agentry-sh/maintainers

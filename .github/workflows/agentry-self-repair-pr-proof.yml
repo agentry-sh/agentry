@@ -1,0 +1,96 @@
+name: Agentry self-repair PR proof
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, converted_to_draft, edited]
+
+# One current run per PR prevents an older tested head from racing a newer one.
+concurrency:
+  group: agentry-self-repair-pr-proof-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+# Jobs opt into only the read permissions they need. This workflow never merges
+# or deploys; it records provider-observed proof for an already approved draft.
+permissions: {}
+
+jobs:
+  bounded_tests:
+    name: Bounded repair tests (unprivileged)
+    if: >-
+      github.event.pull_request.draft == true &&
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      # pull_request_target loads this workflow from the trusted base branch.
+      # Only this secret-free job checks out and executes the untrusted PR head.
+      - name: Check out exact PR head without persisted credentials
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+
+      - name: Install locked dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts
+
+      - name: Typecheck database package
+        run: npm -w @agentry/db run typecheck
+
+      - name: Test shared contracts
+        run: npm -w @agentrysh/shared test
+
+      - name: Typecheck API package
+        run: npm -w @agentry/api run typecheck
+
+      - name: Test API package
+        run: npm -w @agentry/api run test:unit
+
+  trusted_pr_proof:
+    name: Record trusted draft-PR proof
+    needs: [bounded_tests]
+    if: >-
+      always() &&
+      needs.bounded_tests.result == 'success' &&
+      github.event.pull_request.draft == true &&
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      # This job never checks out or invokes PR-controlled code. The CI secret is
+      # available only to the script at the exact trusted base SHA from the event.
+      - name: Check out trusted base-branch proof code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+          sparse-checkout: scripts/agentry-pr-proof.mjs
+          sparse-checkout-cone-mode: false
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+
+      - name: Derive provider facts and record immutable proof
+        env:
+          AGENTRY_API_BASE_URL: https://api.agentry.sh
+          AGENTRY_AUTOMATION_ID: agentry_production_error_repair
+          AGENTRY_PLAYBOOK: error-to-draft-pr@2.0.0
+          AGENTRY_TEST_JOB_RESULT: ${{ needs.bounded_tests.result }}
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          EXPECTED_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+          AGENTRY_AUTOMATION_CI_API_KEY: ${{ secrets.AGENTRY_AUTOMATION_CI_API_KEY }}
+        run: node scripts/agentry-pr-proof.mjs

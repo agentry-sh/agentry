@@ -1,0 +1,63 @@
+node_modules
+dist
+.wrangler
+.dev.vars
+.env
+.env.local
+.env*
+!.env.example
+!.env.*.example
+.dev.vars*
+*.log
+.DS_Store
+.turbo
+coverage
+.turso
+*.tsbuildinfo
+.astro
+.claude
+**/.toolcraft/
+**/test-results/
+
+# Agentry onboarding state, credentials, plans, proof material, and scratch
+# output are server-owned or temporary and never belong in a customer repo.
+**/.agentry/*
+**/.agentry/**
+.agentry-*
+
+# Credentials, local databases, and provider exports are never source files.
+credentials.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+
+# Only the two public fixture trees are source. Other local onboarding runs can
+# contain credentials and runtime state and stay ignored.
+docs/onboarding-mockups/*
+!docs/onboarding-mockups/README.md
+!docs/onboarding-mockups/fixtures/
+docs/onboarding-mockups/fixtures/*
+!docs/onboarding-mockups/fixtures/runtime-b2b-funnel/
+!docs/onboarding-mockups/fixtures/runtime-b2b-funnel/**
+!docs/onboarding-mockups/fixtures/runtime-b2c-existing-analytics/
+!docs/onboarding-mockups/fixtures/runtime-b2c-existing-analytics/**
+
+# Other generated agent/eval output can contain credentials and runtime state.
+docs/agent-recovery-runs/
+design-qa.md
+docs/audits/
+tmp/
+
+# Retired/private application trees can still contain local build output in
+# this migration checkout. They are never part of the fresh public snapshot.
+/agentry/
+/apps/outreach/
+/apps/web/
+/apps/www-redirect/
+/docs/outreach/
+/ops/posthog-production/

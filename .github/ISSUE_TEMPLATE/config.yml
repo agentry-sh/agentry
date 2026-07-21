@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://github.com/agentry-sh/agentry/blob/main/SECURITY.md
+    about: Report vulnerabilities and exposed credentials privately.
+  - name: Hosted-service support
+    url: https://github.com/agentry-sh/agentry/blob/main/SUPPORT.md
+    about: Billing, account access, data deletion, and private support boundaries.

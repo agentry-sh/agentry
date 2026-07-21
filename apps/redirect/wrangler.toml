@@ -1,0 +1,10 @@
+# Keep the existing deployed Worker name during cutover so Cloudflare route
+# ownership changes atomically instead of creating a second competing worker.
+name = "agentry-www-redirect"
+main = "src/index.ts"
+compatibility_date = "2025-05-01"
+
+routes = [
+  { pattern = "agentry.sh/*", zone_name = "agentry.sh" },
+  { pattern = "www.agentry.sh/*", zone_name = "agentry.sh" },
+]

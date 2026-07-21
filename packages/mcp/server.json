@@ -1,0 +1,40 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.agentry-sh/agentry-observability",
+  "title": "Agentry.sh Observability",
+  "description": "Canonical Agentry discovery: PostHog errors, recordings, flags, surveys, experiments, and analytics.",
+  "version": "0.1.1",
+  "websiteUrl": "https://github.com/agentry-sh/agentry",
+  "repository": {
+    "url": "https://github.com/agentry-sh/agentry",
+    "source": "github",
+    "subfolder": "packages/mcp"
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/agentry-sh/agentry/main/assets/brand/agentry-icon-white-bg-black.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "512x512"
+      ]
+    },
+    {
+      "src": "https://raw.githubusercontent.com/agentry-sh/agentry/main/assets/brand/agentry-lockup-light.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": [
+        "any"
+      ],
+      "theme": "dark"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@agentrysh/mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

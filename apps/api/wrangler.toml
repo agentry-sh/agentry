@@ -1,0 +1,56 @@
+name = "agentry-api"
+main = "src/index.ts"
+compatibility_date = "2025-05-01"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+# Bind the worker to api.agentry.sh. Cloudflare auto-creates the routing record
+# under the agentry.sh zone (which must already be active on the same CF account).
+routes = [
+  { pattern = "api.agentry.sh", custom_domain = true },
+]
+
+[vars]
+# Fail-closed core database maintenance gate. Set this to a short maintenance
+# identifier before pausing database writers; only the exact value "off" (or
+# an absent binding) enables HTTP and scheduled work.
+AGENTRY_CORE_DB_MAINTENANCE = "off"
+# Hard cap on accepted JSON request bodies in bytes (256KB).
+MAX_BODY_BYTES = "262144"
+# Public control-plane origin used in generated runner and CI guidance.
+AGENTRY_URL = "https://api.agentry.sh"
+AGENTRY_ENVIRONMENT = "production"
+
+[[ratelimits]]
+name = "AUTH_START_RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 20, period = 60 }
+
+[[ratelimits]]
+name = "AUTH_POLL_RATE_LIMITER"
+namespace_id = "1002"
+simple = { limit = 120, period = 60 }
+
+# Daily bounded control-plane retention sweep. 01:10 UTC keeps it clear of
+# midnight cron contention.
+# The */15 sweep evaluates every active alert (see alert-evaluation.ts); the
+# scheduled handler dispatches on event.cron.
+[triggers]
+crons = ["10 1 * * *", "*/15 * * * *", "* * * * *"]
+
+# Secrets (set via `wrangler secret put`):
+#   TURSO_DATABASE_URL
+#   TURSO_AUTH_TOKEN
+#   AGENTRY_ONBOARDING_PROOF     (short-lived install verification only)
+#   POSTHOG_OAUTH_CLIENT_ID      Optional explicit CIMD client id override
+#   POSTHOG_OAUTH_REDIRECT_URI   Exact registered OAuth callback override
+#   AGENTRY_TOKEN_ENC_KEY        32-byte AES-256 key for OAuth tokens and
+#                                recoverable control-plane secrets
+#   STRIPE_SECRET_KEY            Stripe secret key for Checkout and Portal
+#   STRIPE_WEBHOOK_SECRET        Stripe webhook signing secret for /v1/billing/webhook
+#   STRIPE_PRICE_NERVE           Stripe recurring price id for Nerve
+#   BILLING_SUCCESS_URL          Optional Checkout success URL
+#   BILLING_CANCEL_URL           Optional Checkout cancel URL
+#   BILLING_PORTAL_RETURN_URL    Optional Stripe customer portal return URL
+#   AGENTRY_DEPLOY_SHA           Commit deployed (injected at deploy time).
+#   ADMIN_TOKEN                (Bearer token for /admin/* endpoints)
+# Do NOT set ENABLE_TEST_LOGIN in production — it's a backdoor for local e2e.

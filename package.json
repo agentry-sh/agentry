@@ -1,0 +1,50 @@
+{
+  "name": "agentry",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/auth",
+    "apps/redirect",
+    "packages/db",
+    "packages/cli",
+    "packages/mcp",
+    "packages/shared"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present && npm run test:automation-self-repair",
+    "lint": "node scripts/check-public-boundary.mjs && node scripts/check-markdown-links.mjs && node scripts/format-workflow-markdown.mjs --check && node scripts/lint-agent-surface-docs.mjs && node scripts/gen-workflow-manifest.mjs --check && node scripts/gen-workflow-index.mjs --check && node scripts/gen-workflow-redirects.mjs --check && node scripts/lint-workflow-references.mjs",
+    "test:automation-self-repair": "node --test scripts/agentry-pr-proof.test.mjs scripts/lib/agentry-draft-subject.test.mjs scripts/lib/agentry-codex-scheduler.test.mjs",
+    "test:live:mini": "node scripts/run-api-mini-live-test.mjs",
+    "test:live:posthog-read": "node scripts/run-posthog-read-live-test.mjs",
+    "test:posthog-read-live": "node --test scripts/run-posthog-read-live-test.test.mjs",
+    "test:durable-project-delete": "node --test scripts/lib/artifact-redaction.test.mjs scripts/lib/durable-project-create.test.mjs scripts/lib/durable-project-delete.test.mjs scripts/lib/durable-account-delete.test.mjs scripts/lib/execute-with-cleanup.test.mjs scripts/lib/api-route-surface.test.mjs",
+    "test:contract-local": "node scripts/check-api-contract-drift.mjs --local-only",
+    "test:agent-surface-release-parity": "node --test scripts/lib/agent-surface-parity.test.mjs",
+    "test:live:agent-surface-release-parity": "node scripts/check-agent-surface-release-parity.mjs",
+    "test:distribution-release": "npm -w @agentrysh/mcp test && npm -w @agentry/api run test:unit -- test/adapters-contract.test.ts && npm run test:distribution-parity-local",
+    "test:distribution-parity-local": "node scripts/check-distribution-release-parity.mjs --local-only",
+    "test:live:distribution-release": "node scripts/check-distribution-release-parity.mjs",
+    "test:live:contract-drift": "node scripts/check-api-contract-drift.mjs --compare-local",
+    "test:live:contract-runtime": "node scripts/check-api-contract-drift.mjs --compare-local --runtime",
+    "test:auth-account-lifecycle": "npm -w @agentry/api run test:auth-account-lifecycle",
+    "test:onboarding:contracts": "npm -w @agentry/api run test:unit -- test/install-guide-contract.test.ts test/onboarding-v3-contract.test.ts test/onboarding-v3-state-store.test.ts test/onboarding-v3-openapi.test.ts test/onboarding-v3-routes.test.ts test/onboarding-source-snapshot.test.ts test/onboarding-proof-sessions.test.ts test/onboarding-v3-live-proof.test.ts",
+    "test:onboarding:release": "npm run test:onboarding:contracts && npm -w @agentrysh/mcp test && npm -w @agentry/auth test && npm -w @agentry/redirect test",
+    "test:release-wrapper": "node --test scripts/deploy-agentry.test.mjs scripts/tag-agentry-deploy.test.mjs",
+    "release:verify": "npm run lint && npm run typecheck && npm run test && npm run test:contract-local && npm run test:agent-surface-release-parity && npm run test:release-wrapper && npm run test:distribution-parity-local"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "overrides": {
+    "@esbuild-kit/core-utils@3.3.2": {
+      "esbuild": "0.25.12"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "gray-matter": "^4.0.3",
+    "typescript": "^5.6.3"
+  }
+}

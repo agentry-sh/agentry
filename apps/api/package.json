@@ -1,0 +1,39 @@
+{
+  "name": "@agentry/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "npm -w @agentrysh/shared run build && npm -w @agentry/db run build && node ../../scripts/gen-workflow-manifest.mjs",
+    "dev": "wrangler dev",
+    "deploy": "node ../../scripts/deploy-agentry.mjs api",
+    "pretypecheck": "npm -w @agentrysh/shared run build && npm -w @agentry/db run build && node ../../scripts/gen-workflow-manifest.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:unit",
+    "test:all": "npm run test:unit && npm run test:e2e",
+    "pretest:unit": "npm -w @agentrysh/shared run build && npm -w @agentry/db run build && node ../../scripts/gen-workflow-manifest.mjs",
+    "test:unit": "vitest run",
+    "test:auth-account-lifecycle": "vitest run test/auth-account-lifecycle.test.ts",
+    "test:e2e": "node ../../scripts/run-api-live-e2e.mjs",
+    "test:live:mini": "node ../../scripts/run-api-mini-live-test.mjs",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@agentry/db": "*",
+    "@agentrysh/shared": "*",
+    "@jridgewell/trace-mapping": "^0.3.25",
+    "@libsql/client": "^0.14.0",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.12.28",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260710.1",
+    "@types/node": "^22.9.0",
+    "@vitest/coverage-v8": "^4.1.10",
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.110.0"
+  }
+}

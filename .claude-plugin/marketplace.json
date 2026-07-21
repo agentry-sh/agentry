@@ -1,0 +1,42 @@
+{
+  "name": "agentry",
+  "description": "Agentry for Claude Code: source-aware, read-only PostHog analytics, errors, recordings, flags, surveys, experiments, deploy attribution, and automation.",
+  "version": "0.1.4",
+  "owner": {
+    "name": "Agentry"
+  },
+  "plugins": [
+    {
+      "name": "agentry",
+      "description": "Agentry skill for source-aware, read-only PostHog analytics, errors, recordings, feature flags, surveys, experiments, deploy attribution, and automation.",
+      "source": "./plugins/agentry",
+      "version": "0.1.4",
+      "homepage": "https://github.com/agentry-sh/agentry",
+      "repository": "https://github.com/agentry-sh/agentry",
+      "license": "Apache-2.0",
+      "keywords": [
+        "agentry",
+        "observability",
+        "logging",
+        "error-monitoring",
+        "analytics",
+        "product-analytics",
+        "session-recordings",
+        "feature-flags",
+        "surveys",
+        "experiments",
+        "deploys",
+        "deploy-attribution",
+        "production-debugging",
+        "coding-agents"
+      ],
+      "category": "developer-tools",
+      "tags": [
+        "observability",
+        "analytics",
+        "posthog",
+        "agents"
+      ]
+    }
+  ]
+}

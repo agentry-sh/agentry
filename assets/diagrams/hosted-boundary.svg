@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="220" viewBox="0 0 960 220" role="img" aria-labelledby="title desc">
+  <title id="title">Agentry hosted control-plane boundary</title>
+  <desc id="desc">The customer application and CI send telemetry and source maps directly to the customer-owned PostHog Cloud project. Agentry reads bounded evidence through read-only OAuth and receives deploy proof from CI. A customer-owned coding agent uses Agentry tasks and evidence to prepare at most a draft pull request or report.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#79ff69"/>
+    </marker>
+    <style>
+      .bg { fill: #0b0c0b; }
+      .box { fill: #151615; stroke: #343734; stroke-width: 1; }
+      .posthog { stroke: #79ff69; }
+      .agentry { stroke: #5cc8ff; }
+      .accent-posthog { fill: #79ff69; }
+      .accent-agentry { fill: #5cc8ff; }
+      .title { fill: #d9ddd9; font-family: Menlo, Monaco, monospace; font-size: 12px; letter-spacing: .02em; }
+      .label { fill: #f3f5f3; font-family: Menlo, Monaco, monospace; font-size: 13px; }
+      .sub { fill: #929992; font-family: Menlo, Monaco, monospace; font-size: 9px; }
+      .flow { fill: none; stroke: #79ff69; stroke-width: 1.4; marker-end: url(#arrow); }
+      .deploy { fill: none; stroke: #5cc8ff; stroke-width: 1.4; marker-end: url(#arrow); }
+      .flow-label { fill: #a8afa8; font-family: Menlo, Monaco, monospace; font-size: 8px; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="960" height="220"/>
+  <text class="title" x="20" y="22">customer-owned data + inference · Agentry coordinates the closed loop</text>
+
+  <rect class="box" x="20" y="44" width="126" height="56"/>
+  <rect class="accent-posthog" x="20" y="44" width="4" height="56"/>
+  <text class="label" x="38" y="68">Application</text>
+  <text class="sub" x="38" y="85">official SDK</text>
+
+  <rect class="box" x="20" y="130" width="126" height="56"/>
+  <rect class="accent-posthog" x="20" y="130" width="4" height="56"/>
+  <text class="label" x="38" y="154">Customer CI</text>
+  <text class="sub" x="38" y="171">PostHog CLI + proof</text>
+
+  <rect class="box posthog" x="215" y="70" width="194" height="90"/>
+  <rect class="accent-posthog" x="215" y="70" width="4" height="90"/>
+  <text class="label" x="235" y="102">PostHog Cloud</text>
+  <text class="sub" x="235" y="121">customer-owned data plane</text>
+  <text class="sub" x="235" y="138">analytics · errors · maps</text>
+
+  <rect class="box agentry" x="500" y="70" width="194" height="90"/>
+  <rect class="accent-agentry" x="500" y="70" width="4" height="90"/>
+  <text class="label" x="520" y="102">Agentry</text>
+  <text class="sub" x="520" y="121">hosted control plane</text>
+  <text class="sub" x="520" y="138">evidence · deploys · state</text>
+
+  <rect class="box" x="784" y="44" width="156" height="56"/>
+  <rect class="accent-agentry" x="784" y="44" width="4" height="56"/>
+  <text class="label" x="802" y="68">Coding agent</text>
+  <text class="sub" x="802" y="85">customer-owned inference</text>
+
+  <rect class="box" x="784" y="130" width="156" height="56"/>
+  <rect class="accent-agentry" x="784" y="130" width="4" height="56"/>
+  <text class="label" x="802" y="154">Draft PR / report</text>
+  <text class="sub" x="802" y="171">maximum autonomous effect</text>
+
+  <path class="flow" d="M146 72 H181 V94 H215"/>
+  <text class="flow-label" x="156" y="64">events</text>
+  <path class="flow" d="M146 151 H181 V137 H215"/>
+  <text class="flow-label" x="153" y="143">source maps</text>
+
+  <path class="flow" d="M500 96 H409"/>
+  <text class="flow-label" x="420" y="88">read-only OAuth</text>
+  <path class="flow" d="M409 116 H500"/>
+  <text class="flow-label" x="422" y="133">bounded reads</text>
+
+  <path class="deploy" d="M146 175 H469 V145 H500"/>
+  <text class="flow-label" x="319" y="169">deploy proof only</text>
+
+  <path class="deploy" d="M694 94 H748 V72 H784"/>
+  <text class="flow-label" x="711" y="86">task + evidence</text>
+  <path class="deploy" d="M862 100 V130"/>
+</svg>

@@ -1,0 +1,58 @@
+{
+  "name": "@agentrysh/shared",
+  "version": "0.0.5",
+  "description": "Shared types, error envelopes, workflow contracts, and agent-facing schemas for Agentry integrations.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "tsc -b"
+  },
+  "keywords": [
+    "agentry",
+    "http",
+    "observability",
+    "error-tracking",
+    "analytics"
+  ],
+  "license": "MIT",
+  "author": "Henrik Harju <harjuhenrik@gmail.com>",
+  "homepage": "https://github.com/agentry-sh/agentry/tree/main/packages/shared",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentry-sh/agentry.git",
+    "directory": "packages/shared"
+  },
+  "bugs": {
+    "url": "https://github.com/agentry-sh/agentry/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.10"
+  }
+}

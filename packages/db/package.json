@@ -1,0 +1,55 @@
+{
+  "name": "@agentry/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "default": "./dist/schema.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:check:schema": "drizzle-kit check",
+    "db:bootstrap:empty": "node scripts/bootstrap-empty-core-db.mjs",
+    "db:test:audit-migration": "node scripts/check-durable-audit-log-migration.mjs",
+    "db:test:webhook-outbox-migration": "node scripts/check-webhook-outbox-migration.mjs",
+    "db:test:foundation-provenance-migrations": "node scripts/check-foundation-provenance-migrations.mjs",
+    "db:migrate:core": "node scripts/core-migration-lifecycle.mjs",
+    "db:verify:core": "node scripts/core-migration-lifecycle.mjs --verify-only",
+    "db:deploy": "npm run db:migrate:core",
+    "db:test:orchestration-migration": "node scripts/check-automation-orchestration-migration.mjs",
+    "db:test:mutation-commands-migration": "node scripts/check-mutation-commands-migration.mjs",
+    "db:test:billing-safety-migration": "node scripts/check-billing-safety-migration.mjs",
+    "db:test:sourcemap-commands-migration": "node scripts/check-sourcemap-commands-migration.mjs",
+    "db:test:posthog-binding-guards": "node scripts/check-posthog-binding-guards.mjs",
+    "db:test:posthog-binding-identities": "node scripts/check-posthog-binding-resource-identities.mjs",
+    "db:test:install-plan-revisions": "node scripts/check-install-plan-revisions-migration.mjs",
+    "db:test:automation-scheduler-cursors": "node scripts/check-automation-scheduler-cursors-migration.mjs",
+    "db:test:automation-workflow-runtime": "node scripts/check-automation-workflow-runtime-migration.mjs",
+    "db:test:posthog-oauth-connections": "node scripts/check-posthog-oauth-connections-migration.mjs",
+    "db:test:onboarding-posthog-proof": "node scripts/check-onboarding-posthog-proof-migration.mjs",
+    "db:test:hosted-ingest-storage-removal": "node scripts/check-hosted-ingest-storage-removal-migration.mjs",
+    "db:test:read-only-schema-hard-cut": "node scripts/check-read-only-schema-hard-cut-migration.mjs",
+    "db:test:release-lifecycle": "node scripts/check-core-migration-lifecycle.mjs",
+    "db:test:legacy-loopback-quarantine": "node scripts/check-legacy-loopback-quarantine.mjs",
+    "db:test:core-migrations": "npm run db:test:audit-migration && npm run db:test:webhook-outbox-migration && npm run db:test:foundation-provenance-migrations && npm run db:test:orchestration-migration && npm run db:test:mutation-commands-migration && npm run db:test:billing-safety-migration && npm run db:test:sourcemap-commands-migration && npm run db:test:posthog-binding-guards && npm run db:test:posthog-binding-identities && npm run db:test:install-plan-revisions && npm run db:test:automation-scheduler-cursors && npm run db:test:automation-workflow-runtime && npm run db:test:posthog-oauth-connections && npm run db:test:onboarding-posthog-proof && npm run db:test:hosted-ingest-storage-removal && npm run db:test:read-only-schema-hard-cut && npm run db:test:legacy-loopback-quarantine && npm run db:test:release-lifecycle"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "drizzle-orm": "^0.45.2"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.10",
+    "typescript": "^5.6.3"
+  }
+}
