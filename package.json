@@ -43,6 +43,7 @@
     }
   },
   "optionalDependencies": {
+    "@libsql/linux-x64-gnu": "0.4.7",
     "@rolldown/binding-linux-x64-gnu": "1.1.5"
   },
   "devDependencies": {
