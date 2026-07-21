@@ -34,7 +34,7 @@ async function fetchBounded(url, maxBytes = 1_000_000) {
   const response = await fetch(url, {
     headers: { "user-agent": userAgent },
     redirect: "error",
-    signal: AbortSignal.timeout(15_000),
+    signal: AbortSignal.timeout(30_000),
   });
   assert.equal(response.status, 200, `${url} returned HTTP ${response.status}`);
   const declared = Number(response.headers.get("content-length") ?? "0");
