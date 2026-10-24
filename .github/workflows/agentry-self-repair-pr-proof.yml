@@ -28,7 +28,7 @@ jobs:
       # pull_request_target loads this workflow from the trusted base branch.
       # Only this secret-free job checks out and executes the untrusted PR head.
       - name: Check out exact PR head without persisted credentials
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
@@ -71,7 +71,7 @@ jobs:
       # This job never checks out or invokes PR-controlled code. The CI secret is
       # available only to the script at the exact trusted base SHA from the event.
       - name: Check out trusted base-branch proof code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
         with:
           ref: ${{ github.event.pull_request.base.sha }}
           persist-credentials: false
